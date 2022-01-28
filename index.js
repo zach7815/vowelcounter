@@ -1,10 +1,16 @@
 const btn= document.querySelector(".btn");
 const userInput= document.querySelector("#wordInput").value;
 
- btn.addEventListener("click", nullCheck)
+ btn.addEventListener("click",()=>{
+     nullCheck(userInput,()=>{
+         wordChecker(word,()=>{
+             vowelCounter(word)
+         })
+     })
+ })
 
 
-function wordChecker(word){
+function wordChecker(word,callback){
     let lettersOnly = /^[a-zA-Z]+$/
    
     if(word.match(lettersOnly)){
@@ -12,26 +18,27 @@ function wordChecker(word){
         return word;
     }
     else {
-        alert("please only submit a word that containing a-z or A-Z")
+        
         return false
     }
     
 }
 
-function vowelCounter(wordChecker){
+function vowelCounter(word){
+      let count =word.split("").filter(x=>x.match(/[aeiou]/gi)).length;
+      document.querySelector(".output").innerText=count;
 
-   let word = document.querySelector("#wordInput").value;
-   wordChecker(word)
-   console.log(word.split("").filter(x=>x.match(/[aeiou]/gi)).length) 
+    
 }
 
-function nullCheck(input){
-   const value= input.value.trim()
-    if (value.dataset.state=){
-        alert("please write a word")
-        return false
+function nullCheck(word, callback){
+    if (!word){
+        alert(" please enter a word")
+        return false; 
     }
-    else{
-        return userInput
+    else {
+        console.log(word)
+        return word
     }
 }
+
