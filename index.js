@@ -1,44 +1,43 @@
 const btn= document.querySelector(".btn");
-const userInput= document.querySelector("#wordInput").value;
+const userInput= document.querySelector("#wordInput");
 
  btn.addEventListener("click",()=>{
-     nullCheck(userInput,()=>{
-         wordChecker(word,()=>{
-             vowelCounter(word)
+   const word=userInput.value; 
+    isNull(word,()=>{
+         isWord(word,()=>{
+             vowelCounter(word,vowelCounter)
          })
      })
  })
 
 
-function wordChecker(word,callback){
+function isWord(word,callback){
     let lettersOnly = /^[a-zA-Z]+$/
    
     if(word.match(lettersOnly)){
-     console.log(word)
-        return word;
+        return callback(word)
     }
     else {
-        
+        alert("please enter a word without numbers or special characters")
         return false
     }
     
 }
 
 function vowelCounter(word){
-      let count =word.split("").filter(x=>x.match(/[aeiou]/gi)).length;
+      let count = word.split("").filter(x=>x.match(/[aeiou]/gi)).length;
       document.querySelector(".output").innerText=count;
 
     
 }
 
-function nullCheck(word, callback){
+function isNull(word, callback){
     if (!word){
         alert(" please enter a word")
         return false; 
     }
     else {
-        console.log(word)
-        return word
+        return callback(word)
     }
 }
 
